@@ -205,6 +205,7 @@
             document.getElementById("login-container").className = "loginContainerStyle";
             document.getElementById("nav-container").className = "navContainerHiddenStyle";
             document.getElementById("logout-button").className = "logoutButtonHiddenStyle";
+            page = 'login'
         }
     }
     function showForm() {
@@ -213,6 +214,7 @@
         // update nav button styling
         document.getElementById("board-nav-button").className = "navButtonStyle";
         document.getElementById("form-nav-button").className = "navButtonSelectedStyle";
+        page = 'form';
     }
     function showBoard() {
         // update view container 
@@ -220,6 +222,7 @@
         // update nav button styling
         document.getElementById("form-nav-button").className = "navButtonStyle";
         document.getElementById("board-nav-button").className = "navButtonSelectedStyle";
+        page = 'board';
     }
     function attemptLogin() {
         // handle login attempt
@@ -258,6 +261,7 @@
         document.getElementById("login-container").className = "loginContainerStyle";
         document.getElementById("nav-container").className = "navContainerHiddenStyle";
         document.getElementById("logout-button").className = "logoutButtonHiddenStyle";
+        page = 'login';
     }
 </script>
 </head>
