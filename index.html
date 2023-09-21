@@ -1,0 +1,312 @@
+<!doctype html>
+<html>
+<head>
+<title>Dividia Bugs</title>
+<meta name="description" content="Our first page">
+<meta name="keywords" content="html tutorial template">
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .containerStyle {
+        height:100vh;
+        width:100vw;
+        overflow:hidden;
+        background-color: rgba(0,0,0,0.8);
+        margin: 0;
+    } 
+    .headerContainerStyle {
+        height:5vh;
+        background-color:dodgerblue;
+        display:flex;
+        flex-direction:row;
+        align-items:center;
+        justify-content:center;
+        position: relative;
+        box-shadow: 1px 2px 2px hsl(220deg 60% 50% / 0.2),
+                    2px 4px 4px hsl(220deg 60% 50% / 0.2),
+                    4px 8px 8px hsl(220deg 60% 50% / 0.2),
+                    8px 16px 16px hsl(220deg 60% 50% / 0.2);
+        padding-bottom: 1vmin;
+        border-bottom: .5vmin solid rgba(0,0,0,0.6);
+    }
+    .headerTextStyle {
+        font-size:4vmin;
+        color: rgba(255,255,255,0.95);
+    }
+    .logoutButtonStyle {
+        visibility: visible;
+        height: 3vmin;
+        font-size: 2vmin;
+        border-radius: 5px;
+        margin-left: 2vw;
+        position: absolute;
+        top: 50%;
+        right: 3vw;
+        transform: translateY(-50%);
+    }
+    .logoutButtonHiddenStyle {
+        height: 0;
+        width: 0;
+        visibility: hidden;
+    }
+    .navContainerStyle {
+        height:4vh;
+        text-align:center;
+        margin-bottom:1vh;
+        visibility: visible;
+    }
+    .navContainerHiddenStyle {
+        height: 0;
+        visibility: hidden;
+    }
+    .navButtonStyle {
+        font-size:2vmin;
+        cursor:pointer;
+        margin:1vmin;
+        background-color: rgba(0,0,0,0.6);
+        color:rgba(255,255,255,0.95);
+        border-radius: 5px;
+        border: none;
+        padding: .5vmin;
+    }
+    .navButtonStyle:hover {
+        background-color:lightgray;
+        color: black;
+        border-radius: 5px;
+        border: none;
+        padding: .5vmin;
+    }
+    .navButtonSelectedStyle {
+        font-size:2vmin;
+        cursor:pointer;
+        margin:1vmin;
+        color: white;
+        background-color:dodgerblue;
+        border-radius: 5px;
+        border: none;
+        padding: .5vmin;
+    }
+    .navButtonSelectedStyle:hover {
+        background-color:lightgray;
+        color: black;
+        border-radius: 5px;
+        border: none;
+        padding: .5vmin;
+    }
+    .viewContainerHiddenStyle {
+        height: 0px;
+        width: 0px;
+        visibility: hidden;
+    }
+    .viewContainerStyle {
+        visibility: visible;
+        width:100%;
+        height:88vh
+    }
+    .loginContainerHiddenStyle {
+        height: 0px;
+        width: 0px;
+        visibility: hidden;
+    }
+    .loginContainerStyle {
+        visibility: visible;
+        width:100%;
+        height:88vh;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center; 
+    }
+    .formContainerStyle {
+        padding:6vmin;
+        padding-right: 5vmin;
+        padding-left: 5vmin;
+        border-radius: 5px;
+        width: 40%;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center; 
+        background-color:lightgrey;
+        border: .5vmin solid rgba(0,0,0,0.5);
+        box-shadow: 1px 2px 2px hsl(220deg 60% 50% / 0.2),
+                    2px 4px 4px hsl(220deg 60% 50% / 0.2),
+                    4px 8px 8px hsl(220deg 60% 50% / 0.2),
+                    8px 16px 16px hsl(220deg 60% 50% / 0.2),
+                    16px 32px 32px hsl(220deg 60% 50% / 0.2);
+    }
+    .formHeadingTextStyle {
+        font-size: 3vmin;
+        margin: 0;
+        margin-bottom: 2vmin;
+        color: rgba(0,0,0,0.6)
+    }
+    .inputLabelStyle {
+        font-size: 2vmin;
+        margin: 0;
+        color: rgba(0,0,0,0.6)
+    }
+    .inputStyle {
+        font-size: 2vmin;
+        border-radius: 5px;
+        margin-top: 2vmin;
+        margin-bottom: 2vmin;
+        padding: .5vmin;
+        color: rgba(0,0,0,0.6)
+    }
+    .submitButtonStyle {
+        font-size: 2vmin;
+        border-radius: 5px;
+        margin-top: 2vmin;
+        padding: .5vmin;
+        text-align: center;
+        cursor: pointer;
+        color: rgba(255,255,255,0.95);
+        background-color: dodgerblue;
+        width: 70%;
+        margin-left: 15%;
+        box-shadow: 1px 2px 2px hsl(220deg 60% 50% / 0.2),
+                    2px 4px 4px hsl(220deg 60% 50% / 0.2),
+                    4px 8px 8px hsl(220deg 60% 50% / 0.2);
+    }
+</style>
+<script async src="https://app-cdn.clickup.com/assets/js/forms-embed/v1.js"></script>
+<script>
+
+    let users = ['david','rayers','brad','mlaplante','travis','larry','chad','greg'];
+    let domain = 'dividia.net';
+    let p = 'RHQ9MTIzNCE=';
+    let refreshRate = 60 * 1000; // refresh rate of every hour
+    let isLoggedIn = localStorage.getItem("isLoggedIn");
+
+    function checkLogin() {
+        // check if user is logged in
+        if (isLoggedIn) {
+            // show board or form view
+            document.getElementById("login-container").className = "loginContainerHiddenStyle";
+            document.getElementById("container").className = "viewContainerStyle";
+            document.getElementById("nav-container").className = "navContainerStyle";
+            document.getElementById("logout-button").className = "logoutButtonStyle";
+            setInterval(function(){ 
+                document.getElementById("container").innerHTML='<iframe class="clickup-embed" src="https://sharing.clickup.com/9014054944/b/h/8cmf410-9094/c892a011ab833f3" onwheel="" width="100%" height="100%" style="background: transparent; border: 1px solid #ccc;"></iframe>'; 
+            }, refreshRate);
+
+        } else {
+            // clear set interval for board refresh
+            clearInterval();
+            // show login view
+            document.getElementById("container").className = "viewContainerHiddenStyle";
+            document.getElementById("login-container").className = "loginContainerStyle";
+            document.getElementById("nav-container").className = "navContainerHiddenStyle";
+            document.getElementById("logout-button").className = "logoutButtonHiddenStyle";
+        }
+    }
+    function showForm() {
+        // update view container 
+        document.getElementById("container").innerHTML='<iframe class="clickup-embed clickup-dynamic-height" src="https://forms.clickup.com/9014054944/f/8cmf410-8094/LTLXO7UI35HJY10EG4" onwheel="" width="100%" height="100%" style="background: transparent; border: 1px solid #ccc;"></iframe>';
+        // update nav button styling
+        document.getElementById("board-nav-button").className = "navButtonStyle";
+        document.getElementById("form-nav-button").className = "navButtonSelectedStyle";
+        // clear set interval for board refresh
+        clearInterval();
+    }
+    function showBoard() {
+        // update view container 
+        document.getElementById("container").innerHTML='<iframe class="clickup-embed" src="https://sharing.clickup.com/9014054944/b/h/8cmf410-9094/c892a011ab833f3" onwheel="" width="100%" height="100%" style="background: transparent; border: 1px solid #ccc;"></iframe>'; 
+        // update nav button styling
+        document.getElementById("form-nav-button").className = "navButtonStyle";
+        document.getElementById("board-nav-button").className = "navButtonSelectedStyle";
+        // clear set interval for board refresh
+        clearInterval();
+        // start timer to refresh board every 5 minutes
+        setInterval(function(){ 
+            document.getElementById("container").innerHTML='<iframe class="clickup-embed" src="https://sharing.clickup.com/9014054944/b/h/8cmf410-9094/c892a011ab833f3" onwheel="" width="100%" height="100%" style="background: transparent; border: 1px solid #ccc;"></iframe>'; 
+        }, refreshRate);
+    }
+    function attemptLogin() {
+        // handle login attempt
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+        // check email format
+        if(!username.split('').includes("@") || !username.split('').includes(".")){
+            alert("Email format not valid. Please try again.");
+            return;
+        };
+        // check email domain
+        if(username.split('@')[1] !== domain){
+            alert("Invalid username or password. Please try again.")
+            return;
+        };
+        // check if username and password are valid
+        if (users.includes(username.split('@')[0]) && btoa(password).toString() == p) {
+            // set local storage to show user is logged in
+            localStorage.setItem("isLoggedIn", true);
+            isLoggedIn = true;
+            // show board or form view
+            document.getElementById("login-container").className = "loginContainerHiddenStyle";
+            document.getElementById("container").className = "viewContainerStyle";
+            document.getElementById("nav-container").className = "navContainerStyle";
+            document.getElementById("logout-button").className = "logoutButtonStyle";
+            // clear set interval for board refresh
+            clearInterval();
+             // start timer to refresh board every 5 minutes
+            setInterval(function(){ 
+                document.getElementById("container").innerHTML='<iframe class="clickup-embed" src="https://sharing.clickup.com/9014054944/b/h/8cmf410-9094/c892a011ab833f3" onwheel="" width="100%" height="100%" style="background: transparent; border: 1px solid #ccc;"></iframe>'; 
+            }, refreshRate);
+        } else {
+            alert("Invalid username or password. Please try again.");
+        };
+    }
+    function logoutUser() {
+        // remove user from local storage
+        localStorage.removeItem("isLoggedIn");
+        isLoggedIn = false;
+         // show login view
+        document.getElementById("container").className = "viewContainerHiddenStyle";
+        document.getElementById("login-container").className = "loginContainerStyle";
+        document.getElementById("nav-container").className = "navContainerHiddenStyle";
+        document.getElementById("logout-button").className = "logoutButtonHiddenStyle";
+        // clear set interval for board refresh
+        clearInterval();
+    }
+</script>
+</head>
+<body class="containerStyle" onload="checkLogin()">
+
+    <!-- header  -->
+    <div class="headerContainerStyle">
+        <h1 class="headerTextStyle">Dividia Bugs</h1>
+        <button id="logout-button" class="logoutButtonHiddenStyle" onclick="logoutUser()">Logout</p>
+    </div>
+
+    <!-- nav  -->
+    <div id="nav-container" class="navContainerHiddenStyle">
+        <button id="board-nav-button" class="navButtonSelectedStyle" onclick="showBoard()">Board</button>
+        <button id="form-nav-button"  class="navButtonStyle" onclick="showForm()">Form</button>
+    </div>
+
+    <!-- view container  -->
+    <div id="container" class="viewContainerStyle">
+        <!-- intially set div to show the board view  -->
+        <iframe class="clickup-embed" src="https://sharing.clickup.com/9014054944/b/h/8cmf410-9094/c892a011ab833f3" onwheel="" width="100%" height="100%" style="background: transparent; border: 1px solid #ccc;"></iframe>
+    </div>
+
+     <!-- login view container  -->
+     <div id="login-container" class="loginContainerStyle">
+
+        <div class="formContainerStyle">
+            <p class="formHeadingTextStyle">Please Login</p>
+            <form class="formStyle" action="javascript:attemptLogin()">
+                <label class="inputLabelStyle" for="username">Email:</label><br>
+                <input class="inputStyle" type="text" id="username" name="username"><br>
+                <label class="inputLabelStyle" for="password">Password:</label><br>
+                <input class="inputStyle" type="password" id="password" name="password"><br><br>
+                <input class="submitButtonStyle" type="submit" value="Login">
+            </form>
+        </div>
+
+    </div>
+
+</body>
+</html>
